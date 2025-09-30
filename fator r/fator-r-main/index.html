@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fator R Elite | Calculadora Tributária Premium</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Premium Color Palette */
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            
+            /* Premium Neutrals */
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            /* Premium Accents */
+            --gold: #fbbf24;
+            --platinum: #e5e7eb;
+            --silver: #9ca3af;
+            
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            --space-32: 8rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --shadow-primary: 0 10px 15px -3px rgba(37, 99, 235, 0.2), 0 4px 6px -4px rgba(37, 99, 235, 0.2);
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-3xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --glass-backdrop: blur(10px);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--white);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        /* Premium Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: var(--space-3) 0;
+        }
+
+        .navbar.scrolled {
+            box-shadow: var(--shadow-lg);
+            padding: var(--space-2) 0;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .logo::after {
+            content: 'ELITE';
+            position: absolute;
+            top: -8px;
+            right: -40px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--white);
+            background: var(--gold);
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            line-height: 1;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 80%;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        /* Premium Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: var(--white);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-600);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-outline:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .btn-lg {
+            padding: var(--space-4) var(--space-8);
+            font-size: 1rem;
+        }
+
+        .btn-sm {
+            padding: var(--space-2) var(--space-4);
+            font-size: 0.75rem;
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, var(--gold) 0%, #f59e0b 100%);
+            color: var(--gray-900);
+            font-weight: 700;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3), 0 4px 6px -4px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.4), 0 8px 10px -6px rgba(245, 158, 11, 0.4);
+        }
+
+        /* Premium Hero Section */
+        .hero {
+            padding: calc(80px + var(--space-32)) 0 var(--space-32);
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.1) 0%, transparent 25%);
+            animation: rotate 30s linear infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--radius-full);
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: var(--space-6);
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-6);
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-600) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+        }
+
+        .hero-subtitle {
+            font-size: 1.375rem;
+            color: var(--gray-600);
+            margin-bottom: var(--space-10);
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            margin-bottom: var(--space-16);
+            flex-wrap: wrap;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-8);
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: var(--glass-backdrop);
+            padding: var(--space-8);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: var(--gray-200);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: var(--space-1);
+            font-family: var(--font-display);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Premium Sections */
+        section {
+            padding: var(--space-24) 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-16);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            color: var(--gray-900);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-full);
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Premium Calculator Section */
+        .calculator {
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 25%);
+            pointer-events: none;
+        }
+
+        .calculator-container {
+            background: var(--white);
+            border-radius: var(--radius-3xl);
+            box-shadow: var(--shadow-2xl);
+            overflow: hidden;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--gray-200);
+        }
+
+        .calc-header {
+            background: var(--primary-gradient);
+            color: var(--white);
+            padding: var(--space-10);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+        }
+
+        .calc-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .calc-header p {
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .calc-body {
+            padding: var(--space-10);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-8);
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: var(--space-3);
+            font-size: 1.125rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-5);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            font-size: 1.125rem;
+            transition: var(--transition);
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: var(--space-4);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.25rem;
+        }
+
+        .calc-result {
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+            text-align: center;
+            margin-top: var(--space-8);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .result-value {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: var(--space-2);
+            font-family: var(--font-display);
+            text-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .result-label {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: var(--space-6);
+        }
+
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            background: var(--success);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+        }
+
+        .result-badge.warning {
+            background: var(--warning);
+        }
+
+        /* Premium Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+            border-color: var(--primary);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            color: var(--white);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--space-6);
+            font-size: 2rem;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+            color: var(--gray-900);
+            font-family: var(--font-display);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        /* Premium Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-300);
+            padding: var(--space-20) 0 var(--space-10);
+            margin-top: var(--space-24);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-10);
+            margin-bottom: var(--space-10);
+        }
+
+        .footer-brand h3 {
+            color: var(--white);
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: var(--space-4);
+            font-family: var(--font-display);
+        }
+
+        .footer-brand p {
+            max-width: 300px;
+            line-height: 1.6;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            font-weight: 600;
+            margin-bottom: var(--space-4);
+            font-size: 1.125rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            display: block;
+            color: var(--gray-400);
+            text-decoration: none;
+            margin-bottom: var(--space-3);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: var(--space-8);
+            text-align: center;
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+
+        /* Premium Animations */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Mobile Responsive */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: var(--space-2);
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--gray-600);
+            transition: var(--transition);
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--space-10) var(--space-6);
+                box-shadow: var(--shadow-2xl);
+                transition: var(--transition);
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                text-align: left;
+                gap: var(--space-4);
+            }
+
+            .nav-actions {
+                flex-direction: column;
+                width: 100%;
+                margin-top: var(--space-6);
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: calc(70px + var(--space-20)) 0 var(--space-20);
+            }
+
+            .hero-title {
+                font-size: 2.75rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: var(--space-8);
+            }
+
+            .footer-brand p {
+                margin: 0 auto;
+            }
+
+            .result-value {
+                font-size: 3rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--gray-300);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Premium Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success/Error States */
+        .alert {
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .text-success { color: var(--success); }
+        .text-gray-600 { color: var(--gray-600); }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mt-4 { margin-top: var(--space-4); }
+        .p-4 { padding: var(--space-4); }
+        
+        /* Premium Glassmorphism Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-backdrop);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+        
+        /* Premium Floating Elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-calculator"></i>
+                    <span>FatorR</span>
+                </a>
+                
+                <div class="nav-menu" id="navMenu">
+                    <ul class="nav-links">
+                        <li><a href="#home" class="nav-link active">Início</a></li>
+                        <li><a href="#calculator" class="nav-link">Calculadora</a></li>
+                        <li><a href="#features" class="nav-link">Recursos</a></li>
+                        <li><a href="#pricing" class="nav-link">Planos</a></li>
+                        <li><a href="#contact" class="nav-link">Contato</a></li>
+                    </ul>
+                    
+                    <div class="nav-actions">
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-user"></i>
+                            Entrar
+                        </a>
+                        <a href="#calculator" class="btn btn-primary">
+                            <i class="fas fa-calculator"></i>
+                            Calcular Agora
+                        </a>
+                    </div>
+                </div>
+                
+                <button class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-badge glass">
+                    <i class="fas fa-rocket"></i>
+                    <span>Edição Premium 2025</span>
+                </div>
+                
+                <h1 class="hero-title slide-up">
+                    Domine o Fator R com <span class="text-primary">Precisão Elite</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    A calculadora tributária mais avançada do mercado, desenvolvida para contadores 
+                    e empresários que exigem máxima precisão e sofisticação em análise fiscal.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="#calculator" class="btn btn-primary btn-lg">
+                        <i class="fas fa-calculator"></i>
+                        Calcular Gratuitamente
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-lg">
+                        <i class="fas fa-star"></i>
+                        Conhecer Recursos
+                    </a>
+                </div>
+                
+                <div class="hero-stats glass">
+                    <div class="stat-item">
+                        <div class="stat-value">+25.847</div>
+                        <div class="stat-label">Cálculos Realizados</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">R$ 187Mi+</div>
+                        <div class="stat-label">Economia Gerada</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Precisão Legal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Calculator Section -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Calculadora Fator R Elite</h2>
+                <p class="section-subtitle">
+                    Tecnologia de ponta para cálculos tributários precisos e confiáveis
+                </p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calc-header">
+                    <h3>Cálculo do Fator R</h3>
+                    <p>Informe os dados fiscais da sua empresa para uma análise completa</p>
+                </div>
+                
+                <div class="calc-body">
+                    <form id="calculatorForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="revenue">Receita Bruta Anual (R$)</label>
+                                <div style="position: relative;">
+                                    <input 
+                                        type="text" 
+                                        id="revenue" 
+                                        class="form-input" 
+                                        placeholder="Ex: 500.000,00"
+                                        required
+                                    >
+                                    <span class="input-icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="payroll">Folha de Pagamento Anual (R$)</label>
+                                <div style="position: relative;">
+                                    <input 
+                                        type="text" 
+                                        id="payroll" 
+                                        class="form-input" 
+                                        placeholder="Ex: 150.000,00"
+                                        required
+                                    >
+                                    <span class="input-icon">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="prolabore">Pró-labore Anual (R$)</label>
+                                <div style="position: relative;">
+                                    <input 
+                                        type="text" 
+                                        id="prolabore" 
+                                        class="form-input" 
+                                        placeholder="Ex: 60.000,00"
+                                        required
+                                    >
+                                    <span class="input-icon">
+                                        <i class="fas fa-user-tie"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="benefits">Benefícios (13º, férias, etc.)</label>
+                                <div style="position: relative;">
+                                    <input 
+                                        type="text" 
+                                        id="benefits" 
+                                        class="form-input" 
+                                        placeholder="Ex: 25.000,00"
+                                    >
+                                    <span class="input-icon">
+                                        <i class="fas fa-gift"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg" id="calculateButton">
+                                <i class="fas fa-calculator"></i>
+                                Calcular Fator R
+                            </button>
+                        </div>
+                        
+                        <div id="calculatorResult" class="calc-result hidden">
+                            <div class="result-value" id="factorResult">28.5%</div>
+                            <div class="result-label">Fator R Calculado</div>
+                            <div class="result-badge" id="classificationBadge">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Anexo III</span>
+                            </div>
+                            
+                            <div id="resultDetails" class="mt-4 text-gray-600">
+                                <p>Com base nos dados informados, sua empresa se enquadra no <strong>Anexo III</strong> do Simples Nacional.</p>
+                                <p class="mt-4">
+                                    <strong>Economia anual estimada:</strong> 
+                                    <span class="text-success font-bold" id="savingsAmount">R$ 45.000,00</span>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Recursos Exclusivos</h2>
+                <p class="section-subtitle">
+                    Tecnologia de ponta para gestão tributária inteligente
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">Inteligência Artificial</h3>
+                    <p class="feature-description">
+                        Algoritmos de IA analisam seus dados e identificam oportunidades de economia 
+                        tributária com base em jurisprudência e mudanças legais em tempo real.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Análise Preditiva</h3>
+                    <p class="feature-description">
+                        Simule cenários futuros e receba projeções precisas sobre enquadramento tributário 
+                        com base em diferentes projeções de faturamento e folha de pagamento.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3 class="feature-title">Relatórios Detalhados</h3>
+                    <p class="feature-description">
+                        Gere relatórios profissionais em PDF com análise completa, comparativos entre anexos, 
+                        e documentação para apresentação à contabilidade e órgãos fiscais.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">App Móvel</h3>
+                    <p class="feature-description">
+                        Acesse a plataforma de qualquer dispositivo com nossa aplicação móvel nativa 
+                        para iOS e Android, com sincronização em tempo real.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Histórico Ilimitado</h3>
+                    <p class="feature-description">
+                        Mantenha um histórico completo de todos os cálculos realizados, com capacidade 
+                        de comparar diferentes períodos e visualizar a evolução do seu negócio.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Segurança de Dados</h3>
+                    <p class="feature-description">
+                        Criptografia de ponta a ponta, conformidade com LGPD e backups automáticos 
+                        garantem a máxima segurança para suas informações fiscais.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Pricing Section -->
+    <section id="pricing" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Planos Premium</h2>
+                <p class="section-subtitle">
+                    Escolha a solução ideal para suas necessidades tributárias
+                </p>
+            </div>
+            
+            <div class="text-center">
+                <a href="#" class="btn btn-premium btn-lg">
+                    <i class="fas fa-crown"></i>
+                    Conhecer Planos Elite
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Consultoria Especializada</h2>
+                <p class="section-subtitle">
+                    Nossa equipe de especialistas está pronta para ajudar
+                </p>
+            </div>
+            
+            <div class="text-center">
+                <a href="mailto:contato@fatorrelite.com" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope"></i>
+                    contato@fatorrelite.com
+                </a>
+                <p class="mt-4 text-gray-600">
+                    Resposta em até 2 horas • Consultoria especializada disponível
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>FatorR Elite</h3>
+                    <p>
+                        A calculadora tributária mais avançada do mercado, desenvolvida para contadores 
+                        e empresários que exigem máxima precisão e sofisticação.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#calculator">Calculadora</a></li>
+                        <li><a href="#features">Funcionalidades</a></li>
+                        <li><a href="#">Tabelas 2025</a></li>
+                        <li><a href="#">API para Desenvolvedores</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                        <li><a href="#">Consultoria</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">LGPD</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 FatorR Elite. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========================================
+        // CALCULADORA FATOR R PREMIUM - JAVASCRIPT
+        // ========================================
+        
+        class FatorRCalculatorPremium {
+            constructor() {
+                this.initializeEventListeners();
+                this.setupMobileNavigation();
+                this.setupSmoothScrolling();
+                this.setupScrollEffects();
+                this.tablesAnexoIII = [
+                    { min: 0, max: 180000, aliquot: 0.06, deduction: 0 },
+                    { min: 180000.01, max: 360000, aliquot: 0.112, deduction: 9360 },
+                    { min: 360000.01, max: 720000, aliquot: 0.135, deduction: 17640 },
+                    { min: 720000.01, max: 1800000, aliquot: 0.16, deduction: 35640 },
+                    { min: 1800000.01, max: 3600000, aliquot: 0.21, deduction: 125640 },
+                    { min: 3600000.01, max: 4800000, aliquot: 0.33, deduction: 648000 }
+                ];
+                
+                this.tablesAnexoV = [
+                    { min: 0, max: 180000, aliquot: 0.155, deduction: 0 },
+                    { min: 180000.01, max: 360000, aliquot: 0.18, deduction: 4500 },
+                    { min: 360000.01, max: 720000, aliquot: 0.195, deduction: 9900 },
+                    { min: 720000.01, max: 1800000, aliquot: 0.205, deduction: 17100 },
+                    { min: 1800000.01, max: 3600000, aliquot: 0.23, deduction: 62100 },
+                    { min: 3600000.01, max: 4800000, aliquot: 0.305, deduction: 540000 }
+                ];
+            }
+
+            initializeEventListeners() {
+                const form = document.getElementById('calculatorForm');
+                if (form) {
+                    form.addEventListener('submit', (e) => this.handleCalculation(e));
+                }
+
+                // Format currency inputs with improved UX
+                const currencyInputs = ['revenue', 'payroll', 'prolabore', 'benefits'];
+                currencyInputs.forEach(id => {
+                    const input = document.getElementById(id);
+                    if (input) {
+                        input.addEventListener('input', (e) => this.formatCurrency(e));
+                        input.addEventListener('blur', (e) => this.validateInput(e));
+                        input.addEventListener('focus', (e) => this.highlightInput(e));
+                    }
+                });
+            }
+
+            formatCurrency(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value) {
+                    value = (parseInt(value) / 100).toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                }
+                e.target.value = value;
+            }
+
+            validateInput(e) {
+                const value = this.parseCurrency(e.target.value);
+                if (value < 0) {
+                    e.target.value = '0,00';
+                    this.showAlert('Valor não pode ser negativo', 'error');
+                }
+                this.removeHighlightInput(e);
+            }
+
+            highlightInput(e) {
+                e.target.parentElement.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.1)';
+                e.target.parentElement.style.borderColor = 'var(--primary)';
+            }
+
+            removeHighlightInput(e) {
+                e.target.parentElement.style.boxShadow = '';
+                e.target.parentElement.style.borderColor = '';
+            }
+
+            parseCurrency(value) {
+                if (!value) return 0;
+                return parseFloat(value.replace(/\./g, '').replace(',', '.')) || 0;
+            }
+
+            handleCalculation(e) {
+                e.preventDefault();
+                
+                const calculateButton = document.getElementById('calculateButton');
+                const originalButtonText = calculateButton.innerHTML;
+                
+                // Show loading state
+                calculateButton.innerHTML = '<div class="loading"></div> Calculando...';
+                calculateButton.disabled = true;
+                
+                // Simulate processing for a better UX
+                setTimeout(() => {
+                    const data = this.getFormData();
+                    
+                    if (!this.validateFormData(data)) {
+                        calculateButton.innerHTML = originalButtonText;
+                        calculateButton.disabled = false;
+                        return;
+                    }
+
+                    try {
+                        const result = this.calculateFatorR(data);
+                        this.displayResult(result);
+                    } catch (error) {
+                        this.showAlert('Erro no cálculo. Verifique os dados informados.', 'error');
+                        console.error('Calculation error:', error);
+                    }
+                    
+                    // Restore button
+                    calculateButton.innerHTML = originalButtonText;
+                    calculateButton.disabled = false;
+                }, 1000);
+            }
+
+            getFormData() {
+                return {
+                    revenue: this.parseCurrency(document.getElementById('revenue').value),
+                    payroll: this.parseCurrency(document.getElementById('payroll').value),
+                    prolabore: this.parseCurrency(document.getElementById('prolabore').value),
+                    benefits: this.parseCurrency(document.getElementById('benefits').value)
+                };
+            }
+
+            validateFormData(data) {
+                if (data.revenue <= 0) {
+                    this.showAlert('Receita bruta deve ser maior que zero', 'error');
+                    return false;
+                }
+
+                if (data.revenue > 4800000) {
+                    this.showAlert('Receita bruta excede o limite do Simples Nacional (R$ 4,8 milhões)', 'error');
+                    return false;
+                }
+
+                const totalPayrollCosts = data.payroll + data.prolabore + data.benefits;
+                if (totalPayrollCosts > data.revenue) {
+                    this.showAlert('A soma dos custos com pessoal não pode exceder a receita bruta', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+            calculateFatorR(data) {
+                const totalPayrollCosts = data.payroll + data.prolabore + data.benefits;
+                const factorR = (totalPayrollCosts / data.revenue) * 100;
+                
+                const classification = factorR >= 28 ? 'Anexo III' : 'Anexo V';
+                
+                // Calculate taxes for both annexes
+                const anexoIIITax = this.calculateTax(data.revenue, this.tablesAnexoIII);
+                const anexoVTax = this.calculateTax(data.revenue, this.tablesAnexoV);
+                
+                // Calculate savings
+                const savings = classification === 'Anexo III' ? 
+                    (anexoVTax.annual - anexoIIITax.annual) : 0;
+
+                return {
+                    factorR: factorR,
+                    classification: classification,
+                    totalPayrollCosts: totalPayrollCosts,
+                    revenue: data.revenue,
+                    anexoIIITax: anexoIIITax,
+                    anexoVTax: anexoVTax,
+                    savings: savings,
+                    isEligibleAnexoIII: factorR >= 28
+                };
+            }
+
+            calculateTax(revenue, table) {
+                let tax = { monthly: 0, annual: 0, aliquot: 0 };
+                
+                for (let bracket of table) {
+                    if (revenue >= bracket.min && revenue <= bracket.max) {
+                        tax.annual = (revenue * bracket.aliquot) - bracket.deduction;
+                        tax.monthly = tax.annual / 12;
+                        tax.aliquot = (tax.annual / revenue) * 100;
+                        break;
+                    }
+                }
+                
+                return tax;
+            }
+
+            displayResult(result) {
+                const resultDiv = document.getElementById('calculatorResult');
+                const factorResult = document.getElementById('factorResult');
+                const classificationBadge = document.getElementById('classificationBadge');
+                const savingsAmount = document.getElementById('savingsAmount');
+                const resultDetails = document.getElementById('resultDetails');
+
+                if (!resultDiv) return;
+
+                // Update factor result
+                factorResult.textContent = `${result.factorR.toFixed(1)}%`;
+                
+                // Update classification badge
+                if (result.isEligibleAnexoIII) {
+                    classificationBadge.className = 'result-badge';
+                    classificationBadge.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        <span>${result.classification}</span>
+                    `;
+                } else {
+                    classificationBadge.className = 'result-badge warning';
+                    classificationBadge.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>${result.classification}</span>
+                    `;
+                }
+
+                // Update savings amount
+                if (result.savings > 0) {
+                    savingsAmount.textContent = `R$ ${result.savings.toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    })}`;
+                } else {
+                    savingsAmount.textContent = 'R$ 0,00';
+                }
+
+                // Update result details
+                resultDetails.innerHTML = this.generateResultDetails(result);
+
+                // Show result with animation
+                resultDiv.classList.remove('hidden');
+                resultDiv.style.animation = 'none';
+                setTimeout(() => {
+                    resultDiv.style.animation = 'slideUp 0.8s ease-out';
+                }, 10);
+                
+                // Scroll to result
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Show success message
+                this.showAlert('Cálculo realizado com sucesso!', 'success');
+            }
+
+            generateResultDetails(result) {
+                let details = `
+                    <p><strong>Resumo do Cálculo:</strong></p>
+                    <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+                        <li>Receita Bruta Anual: R$ ${result.revenue?.toLocaleString('pt-BR', {minimumFractionDigits: 2}) || '0,00'}</li>
+                        <li>Total Custos Pessoal: R$ ${result.totalPayrollCosts.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</li>
+                        <li>Fator R Calculado: ${result.factorR.toFixed(2)}%</li>
+                        <li>Classificação: <strong>${result.classification}</strong></li>
+                    </ul>
+                `;
+
+                if (result.isEligibleAnexoIII) {
+                    details += `
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem; border-left: 4px solid var(--success);">
+                            <p style="font-weight: 600;"><i class="fas fa-check-circle" style="color: var(--success);"></i> Parabéns! Sua empresa se qualifica para o Anexo III.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Economia anual estimada:</strong> <span style="color: var(--success); font-weight: 700;">R$ ${result.savings.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span></p>
+                            <p style="margin-top: 0.5rem;"><strong>Imposto mensal (Anexo III):</strong> R$ ${result.anexoIIITax.monthly.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                            <p style="margin-top: 0.5rem;"><strong>Imposto mensal (Anexo V):</strong> R$ ${result.anexoVTax.monthly.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                        </div>
+                    `;
+                } else {
+                    details += `
+                        <div style="background: rgba(245, 158, 11, 0.1); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem; border-left: 4px solid var(--warning);">
+                            <p style="font-weight: 600;"><i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i> Atenção: Com o Fator R atual (${result.factorR.toFixed(2)}%), sua empresa se enquadra no Anexo V.</p>
+                            <p style="margin-top: 0.5rem;">Para se qualificar ao Anexo III, é necessário Fator R ≥ 28%.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Imposto mensal (Anexo V):</strong> R$ ${result.anexoVTax.monthly.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                            <p style="margin-top: 0.5rem;"><strong>Imposto mensal (Anexo III):</strong> R$ ${result.anexoIIITax.monthly.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                            <p style="margin-top: 0.5rem;"><strong>Valor necessário para atingir 28%:</strong> R$ ${((0.28 * result.revenue) - result.totalPayrollCosts).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                        </div>
+                    `;
+                }
+
+                return details;
+            }
+
+            showAlert(message, type = 'info') {
+                const existingAlert = document.querySelector('.alert');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type}`;
+                alert.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 
+                                       type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                `;
+
+                const form = document.getElementById('calculatorForm');
+                if (form) {
+                    form.insertBefore(alert, form.firstChild);
+                    
+                    // Auto remove after 5 seconds
+                    setTimeout(() => {
+                        if (alert.parentNode) {
+                            alert.remove();
+                        }
+                    }, 5000);
+                }
+            }
+
+            setupMobileNavigation() {
+                const navToggle = document.getElementById('navToggle');
+                const navMenu = document.getElementById('navMenu');
+
+                if (navToggle && navMenu) {
+                    navToggle.addEventListener('click', () => {
+                        navToggle.classList.toggle('active');
+                        navMenu.classList.toggle('active');
+                    });
+
+                    // Close menu when clicking on links
+                    const navLinks = navMenu.querySelectorAll('a');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            navToggle.classList.remove('active');
+                            navMenu.classList.remove('active');
+                        });
+                    });
+                }
+            }
+
+            setupSmoothScrolling() {
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if (targetElement) {
+                            const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+
+            setupScrollEffects() {
+                // Navbar scroll effect
+                const navbar = document.getElementById('navbar');
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                });
+
+                // Update active nav link on scroll
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                window.addEventListener('scroll', () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop - 100;
+                        const sectionHeight = section.offsetHeight;
+                        
+                        if (window.pageYOffset >= sectionTop && 
+                            window.pageYOffset < sectionTop + sectionHeight) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === current) {
+                            link.classList.add('active');
+                        }
+                    });
+                });
+            }
+        }
+
+        // Initialize the calculator when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new FatorRCalculatorPremium();
+        });
+
+        // Utility function for external use
+        function scrollTo(selector) {
+            const element = document.querySelector(selector);
+            if (element) {
+                const offsetTop = element.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>
